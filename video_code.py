@@ -63,7 +63,7 @@ nnfs.init()
 
 X, y = spiral_data(100,3)
 
-print(X)
+#print(X)
 
 class Layer_Dense:
     def __init__(self, n_inputs:int, n_neurons:int) -> None:
@@ -88,14 +88,14 @@ sigmoid1 = Activation_Sigmoid()
 # layer3 = Layer_Dense(3,7)
 
 layer1.forward(X)
-print(layer1.output)
+#print(layer1.output)
 
 activation1.forward(layer1.output)
-print(activation1.output)
+#print(activation1.output)
 #print(layer1.output)
 
 sigmoid1.forward(layer1.output)
-print(sigmoid1.output)
+#print(sigmoid1.output)
 # layer2.forward(layer1.output)
 # #print(layer2.output)
 
@@ -116,3 +116,52 @@ print(sigmoid1.output)
 #         output.append(0)
 # print(output)
 
+
+## RAW PYTHON IMPLEMENTATION
+## Exponentiation to get rid of negative values without losing meaning. 
+
+import math
+layer_outputs = [4.8, 1.21, 2.385]
+
+E= math.e
+
+exp_values=[]
+
+for output in layer_outputs:
+    exp_values.append(E**output)
+
+
+# print(exp_values)
+
+## Normalization to get a probability 
+
+norm_base=sum(exp_values)
+norm_values=[]
+
+for exp_val in exp_values:
+    norm_values.append(exp_val/norm_base)
+
+# print(norm_values)
+# print(sum(norm_values))
+
+
+##NUMPY IMPLEMENTATION
+
+layer_outputs = [4.8, 1.21, 2.385]
+
+exp_values=np.exp(layer_outputs)
+
+norm_values = exp_values / np.sum(exp_values)
+
+# print(norm_values)
+# print(sum(norm_values))
+
+## Softmax implementation to work in batches
+
+layer_outputs = [[4.8, 1.21, 2.385], [8.9, -1.81, 0.2], [1.41, 1.051, 0.026]]
+
+exp_values = np.exp(layer_outputs)
+
+norm_values = exp_values / np.sum(exp_values, axis=1, keepdims=True)
+
+print(norm_values)
