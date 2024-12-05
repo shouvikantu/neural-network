@@ -77,8 +77,13 @@ class Activation_Relu:
     def forward(self, inputs):
         self.output= np.maximum(0, inputs)
 
+class Activation_Sigmoid:
+    def forward(self, inputs):
+        self.output = 1/ (1+ np.exp(-inputs))
+
 layer1 = Layer_Dense(2,5)
 activation1 = Activation_Relu()
+sigmoid1 = Activation_Sigmoid()
 # layer2 = Layer_Dense(5, 3)
 # layer3 = Layer_Dense(3,7)
 
@@ -89,6 +94,8 @@ activation1.forward(layer1.output)
 print(activation1.output)
 #print(layer1.output)
 
+sigmoid1.forward(layer1.output)
+print(sigmoid1.output)
 # layer2.forward(layer1.output)
 # #print(layer2.output)
 
